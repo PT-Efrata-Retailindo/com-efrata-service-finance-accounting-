@@ -1,8 +1,8 @@
-﻿using Com.Ambassador.Service.Finance.Accounting.Lib.BusinessLogic.BudgetCashflow;
-using Com.Ambassador.Service.Finance.Accounting.Lib.Services.IdentityService;
-using Com.Ambassador.Service.Finance.Accounting.Lib.Services.ValidateService;
-using Com.Ambassador.Service.Finance.Accounting.Lib.Utilities;
-using Com.Ambassador.Service.Finance.Accounting.WebApi.Utilities;
+﻿using Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.BudgetCashflow;
+using Com.Efrata.Service.Finance.Accounting.Lib.Services.IdentityService;
+using Com.Efrata.Service.Finance.Accounting.Lib.Services.ValidateService;
+using Com.Efrata.Service.Finance.Accounting.Lib.Utilities;
+using Com.Efrata.Service.Finance.Accounting.WebApi.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Com.Ambassador.Service.Finance.Accounting.WebApi.Controllers.v1
+namespace Com.Efrata.Service.Finance.Accounting.WebApi.Controllers.v1
 {
     [Produces("application/json")]
     [ApiVersion("1.0")]
