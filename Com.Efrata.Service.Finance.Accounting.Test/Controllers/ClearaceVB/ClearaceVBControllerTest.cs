@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using Com.Ambassador.Service.Finance.Accounting.Lib;
-using Com.Ambassador.Service.Finance.Accounting.Lib.BusinessLogic.Interfaces.ClearaceVB;
-using Com.Ambassador.Service.Finance.Accounting.Lib.Models.VBRequestDocument;
-using Com.Ambassador.Service.Finance.Accounting.Lib.Services.IdentityService;
-using Com.Ambassador.Service.Finance.Accounting.Lib.Services.ValidateService;
-using Com.Ambassador.Service.Finance.Accounting.Lib.Utilities;
-using Com.Ambassador.Service.Finance.Accounting.Lib.ViewModels.ClearaceVB;
-using Com.Ambassador.Service.Finance.Accounting.WebApi.Controllers.v1.ClearaceVB;
+using Com.Efrata.Service.Finance.Accounting.Lib;
+using Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.Interfaces.ClearaceVB;
+using Com.Efrata.Service.Finance.Accounting.Lib.Models.VBRequestDocument;
+using Com.Efrata.Service.Finance.Accounting.Lib.Services.IdentityService;
+using Com.Efrata.Service.Finance.Accounting.Lib.Services.ValidateService;
+using Com.Efrata.Service.Finance.Accounting.Lib.Utilities;
+using Com.Efrata.Service.Finance.Accounting.Lib.ViewModels.ClearaceVB;
+using Com.Efrata.Service.Finance.Accounting.WebApi.Controllers.v1.ClearaceVB;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +21,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Com.Ambassador.Service.Finance.Accounting.Test.Controllers.ClearaceVB
+namespace Com.Efrata.Service.Finance.Accounting.Test.Controllers.ClearaceVB
 {
     public class ClearaceVBControllerTest
     {
