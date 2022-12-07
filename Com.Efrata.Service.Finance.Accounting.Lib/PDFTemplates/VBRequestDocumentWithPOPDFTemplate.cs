@@ -831,6 +831,16 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.PDFTemplates
             table.AddCell(cell);
             cell.Phrase = new Phrase($"({data.CreatedBy})", normal_font);
             table.AddCell(cell);
+            cell.Phrase = new Phrase("Akutansi", normal_font);
+            table.AddCell(cell);
+            cell.Phrase = new Phrase("Keuangan", normal_font);
+            table.AddCell(cell);
+            cell.Phrase = new Phrase("Kasie Pembelian", normal_font);
+            table.AddCell(cell);
+            cell.Phrase = new Phrase("Pembelian", normal_font);
+            table.AddCell(cell);
+            cell.Phrase = new Phrase(" ", normal_font);
+            table.AddCell(cell);
 
             //cell.Phrase = new Phrase("Kasir", normal_font);
             //table.AddCell(cell);
