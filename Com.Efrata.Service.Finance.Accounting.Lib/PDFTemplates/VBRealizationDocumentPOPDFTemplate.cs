@@ -674,11 +674,11 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.PDFTemplates
 
 
             #region Footer
-            PdfPTable table = new PdfPTable(4)
+            PdfPTable table = new PdfPTable(3)
             {
                 WidthPercentage = 97
             };
-            float[] widths = new float[] { 1f, 1f, 1f, 1f, 1f };
+            float[] widths = new float[] { 1f, 1f, 1f };
             table.SetWidths(widths);
             PdfPCell cell = new PdfPCell()
             {
@@ -693,14 +693,10 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.PDFTemplates
             table.AddCell(cell);
             cell.Phrase = new Phrase("", normal_font);
             table.AddCell(cell);
-            cell.Phrase = new Phrase("", normal_font);
-            table.AddCell(cell);
-            cell.Phrase = new Phrase("", normal_font);
-            table.AddCell(cell);
 
             cell.Phrase = new Phrase("Menyetujui,", normal_font);
             table.AddCell(cell);
-            cell.Colspan = 2;
+            cell.Colspan = 1;
             cell.Phrase = new Phrase("Verifikasi,", normal_font);
             table.AddCell(cell);
             cell.Colspan = 1;
@@ -716,10 +712,6 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.PDFTemplates
                 table.AddCell(cell);
                 cell.Phrase = new Phrase("", normal_font);
                 table.AddCell(cell);
-                cell.Phrase = new Phrase("", normal_font);
-                table.AddCell(cell);
-                cell.Phrase = new Phrase("", normal_font);
-                table.AddCell(cell);
             }
 
             cell.Phrase = new Phrase("(..................)", normal_font);
@@ -728,15 +720,12 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.PDFTemplates
             table.AddCell(cell);
             cell.Phrase = new Phrase("(..................)", normal_font);
             table.AddCell(cell);
-            cell.Phrase = new Phrase("(Pembelian)", normal_font);
+
+            cell.Phrase = new Phrase("(Bag Anggaran)", normal_font);
             table.AddCell(cell);
-            cell.Phrase = new Phrase("Bag.Anggaran", normal_font);
+            cell.Phrase = new Phrase("Verifikasi", normal_font);
             table.AddCell(cell);
-            cell.Phrase = new Phrase(" ", normal_font);
-            table.AddCell(cell);
-            cell.Phrase = new Phrase(" ", normal_font);
-            table.AddCell(cell);
-            cell.Phrase = new Phrase(" ", normal_font);
+            cell.Phrase = new Phrase("Pembelian", normal_font);
             table.AddCell(cell);
 
             //cell.Phrase = new Phrase("Kasir", normal_font);
