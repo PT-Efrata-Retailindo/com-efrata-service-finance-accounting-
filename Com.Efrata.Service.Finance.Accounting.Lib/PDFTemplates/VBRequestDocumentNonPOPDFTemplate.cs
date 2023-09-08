@@ -96,7 +96,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.PDFTemplates
 
             cellHeaderBody.Phrase = new Phrase("Kepada Yth.......", normal_font);
             headerTable1.AddCell(cellHeaderBody);
-            cellHeaderBody.Phrase = new Phrase("Kasir PT. Efrata", normal_font);
+            cellHeaderBody.Phrase = new Phrase("Kasir PT. EFRATA GARMINDO UTAMA", normal_font);
             headerTable1.AddCell(cellHeaderBody);
             cellHeaderBody.Phrase = new Phrase("Di tempat", normal_font);
             headerTable1.AddCell(cellHeaderBody);
@@ -359,10 +359,10 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.PDFTemplates
                 table.AddCell(cell);
             }
 
+            cell.Colspan = 2;
             cell.Phrase = new Phrase("(..................)", normal_font);
             table.AddCell(cell);
-            cell.Phrase = new Phrase("(..................)", normal_font);
-            table.AddCell(cell);
+            cell.Colspan = 0;
             cell.Phrase = new Phrase("(..................)", normal_font);
             table.AddCell(cell);
             cell.Phrase = new Phrase("(..................)", normal_font);
