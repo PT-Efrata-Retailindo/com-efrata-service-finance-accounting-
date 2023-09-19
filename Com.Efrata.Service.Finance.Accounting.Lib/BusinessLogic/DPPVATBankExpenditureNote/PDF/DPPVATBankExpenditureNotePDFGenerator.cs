@@ -56,14 +56,13 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
             cellFooter.Phrase = new Phrase("", _normalFont);
             footerTable.AddCell(cellFooter);
 
-            var signatureTable = new PdfPTable(3);
+            var signatureTable = new PdfPTable(2);
             var signatureCell = new PdfPCell() { HorizontalAlignment = Element.ALIGN_CENTER };
             signatureCell.Phrase = new Phrase("Bag. Keuangan", _normalFont);
             signatureTable.AddCell(signatureCell);
 
-            signatureCell.Colspan = 2;
             signatureCell.HorizontalAlignment = Element.ALIGN_CENTER;
-            signatureCell.Phrase = new Phrase("Direksi", _normalFont);
+            signatureCell.Phrase = new Phrase("Bag. Akuntansi", _normalFont);
             signatureTable.AddCell(signatureCell);
 
             signatureTable.AddCell(new PdfPCell()
@@ -81,15 +80,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
                 VerticalAlignment = Element.ALIGN_BOTTOM,
                 HorizontalAlignment = Element.ALIGN_CENTER
             });
-            signatureTable.AddCell(new PdfPCell()
-            {
-                Phrase = new Phrase("---------------------------", _normalFont),
-                FixedHeight = 40,
-                Border = Rectangle.NO_BORDER,
-                VerticalAlignment = Element.ALIGN_BOTTOM,
-                HorizontalAlignment = Element.ALIGN_CENTER
-            });
-
+            
             footerTable.AddCell(new PdfPCell(signatureTable));
 
             cellFooter.Phrase = new Phrase("", _normalFont);
@@ -140,7 +131,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
 
             cellCenter.Phrase = new Phrase("No.", _subHeaderFont);
             table.AddCell(cellCenter);
-            cellCenter.Phrase = new Phrase("No. SPB", _subHeaderFont);
+            cellCenter.Phrase = new Phrase("No. NI", _subHeaderFont);
             table.AddCell(cellCenter);
             cellCenter.Phrase = new Phrase("Kategori Barang", _subHeaderFont);
             table.AddCell(cellCenter);
@@ -162,7 +153,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
                 table.AddCell(cellLeft);
                 cellCenter.Phrase = new Phrase(item.InternalNote.Currency.Code, _subHeaderFont);
                 table.AddCell(cellCenter);
-                cellCenter.Phrase = new Phrase(item.InternalNote.Items.Sum(itemInvoice => itemInvoice.Invoice.Amount).ToString(), _subHeaderFont);
+                cellCenter.Phrase = new Phrase(string.Format("{0:n0}", item.InternalNote.Items.Sum(itemInvoice => itemInvoice.Invoice.Amount)), _subHeaderFont);
                 table.AddCell(cellCenter);
                 total += item.InternalNote.Items.Sum(itemInvoice => itemInvoice.Invoice.Amount);
             }
@@ -175,7 +166,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
             table.AddCell(cellCenter);
             cellRight.Phrase = new Phrase("Total", _normalBoldFont);
             table.AddCell(cellRight);
-            cellRight.Phrase = new Phrase(total.ToString(), _normalBoldFont);
+            cellRight.Phrase = new Phrase(string.Format("{0:n0}", total), _normalBoldFont);
             table.AddCell(cellRight);
 
             cellLeftBorderless.Colspan = 5;
@@ -225,7 +216,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
             table.AddCell(cellCenter);
             cellCenter.Colspan = 1;
 
-            cellLeft.Phrase = new Phrase("PT. Efrata GARMINDO", _subHeaderFont);
+            cellLeft.Phrase = new Phrase("PT. EFRATA GARMINDO UTAMA", _subHeaderFont);
             table.AddCell(cellLeft);
             cellLeft.Phrase = new Phrase("Tanggal", _subHeaderFont);
             table.AddCell(cellLeft);
