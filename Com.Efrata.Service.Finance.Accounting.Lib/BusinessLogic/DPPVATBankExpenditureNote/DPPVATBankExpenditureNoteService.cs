@@ -50,7 +50,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
                 foreach (var formDetail in formItem.InternalNote.Items.Where(element => element.SelectInvoice))
                 {
                     var detailDOString = JsonConvert.SerializeObject(formDetail.Invoice.DetailDO);
-                    var detail = new DPPVATBankExpenditureNoteDetailModel(model.Id, item.Id, formDetail.Invoice.Id, formDetail.Invoice.DocumentNo, formDetail.Invoice.Date, formDetail.Invoice.ProductNames, formDetail.Invoice.Category.Id, formDetail.Invoice.Category.Name, formDetail.Invoice.Amount, formDetail.Invoice.PaymentMethod, formDetail.Invoice.DeliveryOrdersNo, formDetail.Invoice.PaymentBills, formDetail.Invoice.BillsNo, detailDOString);
+                    var detail = new DPPVATBankExpenditureNoteDetailModel(model.Id, item.Id, formDetail.Invoice.Id, formDetail.Invoice.DocumentNo, formDetail.Invoice.Date, formDetail.Invoice.ProductNames, formDetail.Invoice.Category.Id, formDetail.Invoice.Category.Name, formDetail.Invoice.Amount, formDetail.Invoice.PaymentMethod, formDetail.Invoice.DeliveryOrdersNo, formDetail.Invoice.PaymentBills, formDetail.Invoice.BillsNo, detailDOString, formDetail.Invoice.PaidAmount);
                     EntityExtension.FlagForCreate(detail, _identityService.Username, UserAgent);
                     _dbContext.DPPVATBankExpenditureNoteDetails.Add(detail);
                     _dbContext.SaveChanges();
@@ -274,7 +274,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
                         foreach (var formDetail in formItem.InternalNote.Items.Where(invoiceItem => invoiceItem.SelectInvoice))
                         {
                             var detailDoJson = JsonConvert.SerializeObject(formDetail.Invoice.DetailDO);
-                            var detail = new DPPVATBankExpenditureNoteDetailModel(model.Id, item.Id, formDetail.Invoice.Id, formDetail.Invoice.DocumentNo, formDetail.Invoice.Date, formDetail.Invoice.ProductNames, formDetail.Invoice.Category.Id, formDetail.Invoice.Category.Name, formDetail.Invoice.Amount, formDetail.Invoice.PaymentMethod, formDetail.Invoice.DeliveryOrdersNo, formDetail.Invoice.PaymentBills, formDetail.Invoice.BillsNo,detailDoJson);
+                            var detail = new DPPVATBankExpenditureNoteDetailModel(model.Id, item.Id, formDetail.Invoice.Id, formDetail.Invoice.DocumentNo, formDetail.Invoice.Date, formDetail.Invoice.ProductNames, formDetail.Invoice.Category.Id, formDetail.Invoice.Category.Name, formDetail.Invoice.Amount, formDetail.Invoice.PaymentMethod, formDetail.Invoice.DeliveryOrdersNo, formDetail.Invoice.PaymentBills, formDetail.Invoice.BillsNo,detailDoJson, formDetail.Invoice.PaidAmount);
                             EntityExtension.FlagForCreate(detail, _identityService.Username, UserAgent);
                             _dbContext.DPPVATBankExpenditureNoteDetails.Add(detail);
                             _dbContext.SaveChanges();
@@ -458,6 +458,24 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
             
 
             return reportQuery.FirstOrDefault();
+        }
+
+        public DPPVATBankExpenditureNoteDetailDto GetDetails(long InvoiceId)
+        {
+            var detail = (from a in _dbContext.DPPVATBankExpenditureNoteDetails
+                          join b in _dbContext.DPPVATBankExpenditureNoteItems 
+                          on a.DPPVATBankExpenditureNoteItemId equals b.Id
+                          where a.InvoiceId== InvoiceId
+                          group a by new { a.InvoiceNo, b.InternalNoteId, a.InvoiceId, b.InternalNoteNo } into data
+                         select new DPPVATBankExpenditureNoteDetailDto
+                         {
+                             InvoiceNo= data.Key.InvoiceNo,
+                             InternalNoteNo=data.Key.InternalNoteNo,
+                             InvoiceId=data.Key.InvoiceId,
+                             InternalNoteId=data.Key.InternalNoteId,
+                             PaidAmount= data.Sum(c=>c.PaidAmount)
+                         }).FirstOrDefault();
+            return detail;
         }
     }
 }

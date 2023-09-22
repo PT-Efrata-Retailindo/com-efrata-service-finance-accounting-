@@ -153,7 +153,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
                 table.AddCell(cellLeft);
                 cellCenter.Phrase = new Phrase(item.InternalNote.Currency.Code, _subHeaderFont);
                 table.AddCell(cellCenter);
-                cellCenter.Phrase = new Phrase(string.Format("{0:n0}", item.InternalNote.Items.Sum(itemInvoice => itemInvoice.Invoice.Amount)), _subHeaderFont);
+                cellCenter.Phrase = new Phrase(string.Format("{0:n0}", item.InternalNote.Items.Sum(itemInvoice => itemInvoice.Invoice.PaidAmount)), _subHeaderFont);
                 table.AddCell(cellCenter);
                 total += item.InternalNote.Items.Sum(itemInvoice => itemInvoice.Invoice.Amount);
             }
