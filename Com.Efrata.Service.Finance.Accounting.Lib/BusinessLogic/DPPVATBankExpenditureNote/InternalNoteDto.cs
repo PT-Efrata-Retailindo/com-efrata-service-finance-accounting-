@@ -14,7 +14,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
 
         public InternalNoteDto(DPPVATBankExpenditureNoteItemModel item, List<DPPVATBankExpenditureNoteDetailModel> details)
         {
-            Id = item.Id;
+            Id = item.InternalNoteId;
             DocumentNo = item.InternalNoteNo;
             Date = item.InternalNoteDate;
             DueDate = item.DueDate;
