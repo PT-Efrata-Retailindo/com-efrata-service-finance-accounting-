@@ -368,6 +368,32 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
                               from documentItem in documentItems
 
                               select new ReportDto(detail, itemDetail, documentItem, detail.DPPVATBankExpenditureNoteDetailDos.Select(s=> new ReportDoDetailDto(s.DONo,s.DOId,s.PaymentBill,s.BillNo,s.TotalAmount,s.CurrencyRate)).ToList());
+            List<string> no = new List<string>();
+            double paid = 0;
+            foreach (var data in reportQuery.ToList().OrderBy(a => a.BillsNo).ThenBy(a => a.ExpenditureDate))
+            {
+                if (no.Count == 0)
+                {
+                    paid = data.PaidAmountDetail;
+                    no.Add(data.BillsNo);
+                    data.OutstandingAmount = data.InternalNoteAmount - paid;
+                }
+                else
+                {
+                    var exist = no.Where(a => a == data.BillsNo).FirstOrDefault();
+                    if (exist==null)
+                    {
+                        paid = data.PaidAmountDetail;
+                        data.OutstandingAmount = data.InternalNoteAmount - paid;
+                        no.Add(data.BillsNo);
+                    }
+                    else
+                    {
+                        paid += data.PaidAmountDetail;
+                        data.OutstandingAmount = data.InternalNoteAmount - paid;
+                    }
+                }
+            }
 
             return reportQuery.ToList();
         }
