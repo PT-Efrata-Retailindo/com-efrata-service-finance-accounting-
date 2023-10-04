@@ -293,5 +293,28 @@ namespace Com.Efrata.Service.Finance.Accounting.WebApi.Controllers.v1
                 return StatusCode(General.INTERNAL_ERROR_STATUS_CODE, e.Message + " " + e.StackTrace);
             }
         }
+
+        [HttpGet("get-detail/{InvoiceId}")]
+        public IActionResult GetDetails([FromRoute] long InvoiceId)
+        {
+            try
+            {
+
+                var result = _service.GetDetails(InvoiceId);
+
+                return Ok(new
+                {
+                    apiVersion = ApiVersion,
+                    statusCode = General.OK_STATUS_CODE,
+                    message = General.OK_MESSAGE,
+                    data = result
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(General.INTERNAL_ERROR_STATUS_CODE, e.Message + " " + e.StackTrace);
+            }
+        }
+
     }
 }

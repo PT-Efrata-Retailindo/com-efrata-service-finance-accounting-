@@ -35,6 +35,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
             SupplierCode = itemDetail.SupplierCode;
             DeliveryOrdersNo = detail.DeliveryOrdersNo;
             AmountDetail = detail.Amount;
+            PaidAmountDetail = detail.PaidAmount;
         }
         public ReportDto(DPPVATBankExpenditureNoteDetailModel detail, DPPVATBankExpenditureNoteItemModel itemDetail, DPPVATBankExpenditureNoteModel documentItem,DPPVATBankExpenditureNoteDetailDoModel detailDo)
         {
@@ -66,6 +67,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
             DeliveryOrdersNo = detailDo.DONo;
             AmountDetail = detailDo.TotalAmount;
             DPPVATDetailId = detail.Id;
+            PaidAmountDetail = detail.PaidAmount;
         }
 
         public ReportDto(DPPVATBankExpenditureNoteDetailModel detail, DPPVATBankExpenditureNoteItemModel itemDetail, DPPVATBankExpenditureNoteModel documentItem, List<ReportDoDetailDto> detailSj)
@@ -98,36 +100,38 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
             DeliveryOrdersNo = detail.DeliveryOrdersNo;
             AmountDetail = detail.Amount;
             DetailDO = detailSj;
+            PaidAmountDetail = detail.PaidAmount;
         }
 
-        public int ExpenditureId { get; private set; }
-        public string ExpenditureNoteNo { get; private set; }
-        public DateTimeOffset ExpenditureDate { get; private set; }
-        public string CategoryName { get; private set; }
-        public string PaymentMethod { get; private set; }
-        public double DPP { get; private set; }
-        public double VAT { get; private set; }
-        public double Amount { get; private set; }
-        public string CurrencyCode { get; private set; }
-        public double CurrencyRate { get; private set; }
-        public string BankName { get; private set; }
-        public int SupplierId { get; private set; }
-        public string SupplierName { get; private set; }
-        public int InternalNoteId { get; private set; }
-        public string InternalNoteNo { get; private set; }
-        public double InternalNoteAmount { get; private set; }
-        public double OutstandingAmount { get; private set; }
-        public int InvoiceId { get; private set; }
-        public string InvoiceNo { get; private set; }
-        public double InvoiceAmount { get; private set; }
-        public double PaidAmount { get; private set; }
-        public double Difference { get; private set; }
-        public string BillsNo { get; private set; }
-        public string PaymentBills { get; private set; }
-        public string DeliveryOrdersNo { get; private set; }
-        public object SupplierCode { get; private set; }
-        public double AmountDetail { get; private set; }
+        public int ExpenditureId { get;  set; }
+        public string ExpenditureNoteNo { get;  set; }
+        public DateTimeOffset ExpenditureDate { get;  set; }
+        public string CategoryName { get;  set; }
+        public string PaymentMethod { get;  set; }
+        public double DPP { get;  set; }
+        public double VAT { get;  set; }
+        public double Amount { get;  set; }
+        public string CurrencyCode { get;  set; }
+        public double CurrencyRate { get;  set; }
+        public string BankName { get;  set; }
+        public int SupplierId { get;  set; }
+        public string SupplierName { get;  set; }
+        public int InternalNoteId { get;  set; }
+        public string InternalNoteNo { get;  set; }
+        public double InternalNoteAmount { get;  set; }
+        public double OutstandingAmount { get;  set; }
+        public int InvoiceId { get;  set; }
+        public string InvoiceNo { get;  set; }
+        public double InvoiceAmount { get;  set; }
+        public double PaidAmount { get;  set; }
+        public double Difference { get;  set; }
+        public string BillsNo { get;  set; }
+        public string PaymentBills { get;  set; }
+        public string DeliveryOrdersNo { get;  set; }
+        public object SupplierCode { get;  set; }
+        public double AmountDetail { get;  set; }
         public int DPPVATDetailId { get; set; }
-        public List<ReportDoDetailDto> DetailDO { get; private set; }
+        public double PaidAmountDetail { get;  set; }
+        public List<ReportDoDetailDto> DetailDO { get;  set; }
     }
 }

@@ -13,7 +13,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.Models.DPPVATBankExpenditure
 
         }
 
-        public DPPVATBankExpenditureNoteDetailModel(int dppVATBankExpenditureNoteId, int dppVATBankExpenditureNoteItemId, int invoiceId, string invoiceNo, DateTimeOffset invoiceDate, string productNames, int categoryId, string categoryName, double amount, string paymentMethod, string deliveryOrdersNo, string paymentBills, string billsNo)
+        public DPPVATBankExpenditureNoteDetailModel(int dppVATBankExpenditureNoteId, int dppVATBankExpenditureNoteItemId, int invoiceId, string invoiceNo, DateTimeOffset invoiceDate, string productNames, int categoryId, string categoryName, double amount, string paymentMethod, string deliveryOrdersNo, string paymentBills, string billsNo, double paidAmount)
         {
             DPPVATBankExpenditureNoteId = dppVATBankExpenditureNoteId;
             DPPVATBankExpenditureNoteItemId = dppVATBankExpenditureNoteItemId;
@@ -28,9 +28,10 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.Models.DPPVATBankExpenditure
             DeliveryOrdersNo = deliveryOrdersNo;
             PaymentBills = paymentBills;
             BillsNo = billsNo;
+            PaidAmount = paidAmount;
         }
 
-        public DPPVATBankExpenditureNoteDetailModel(int dppVATBankExpenditureNoteId, int dppVATBankExpenditureNoteItemId, int invoiceId, string invoiceNo, DateTimeOffset invoiceDate, string productNames, int categoryId, string categoryName, double amount, string paymentMethod, string deliveryOrdersNo, string paymentBills, string billsNo, string detailSjJson)
+        public DPPVATBankExpenditureNoteDetailModel(int dppVATBankExpenditureNoteId, int dppVATBankExpenditureNoteItemId, int invoiceId, string invoiceNo, DateTimeOffset invoiceDate, string productNames, int categoryId, string categoryName, double amount, string paymentMethod, string deliveryOrdersNo, string paymentBills, string billsNo, string detailSjJson, double paidAmount)
         {
             DPPVATBankExpenditureNoteId = dppVATBankExpenditureNoteId;
             DPPVATBankExpenditureNoteItemId = dppVATBankExpenditureNoteItemId;
@@ -46,6 +47,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.Models.DPPVATBankExpenditure
             PaymentBills = paymentBills;
             BillsNo = billsNo;
             DetailSJ = detailSjJson;
+            PaidAmount = paidAmount;
         }
 
         public int DPPVATBankExpenditureNoteId { get; private set; }
@@ -59,6 +61,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.Models.DPPVATBankExpenditure
         [MaxLength(128)]
         public string CategoryName { get; private set; }
         public double Amount { get; private set; }
+        public double PaidAmount { get; private set; }
         [MaxLength(512)]
         public string PaymentMethod { get; private set; }
         public string DeliveryOrdersNo { get; internal set; }
