@@ -40,20 +40,32 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
             _dbContext.DPPVATBankExpenditureNotes.Add(model);
             _dbContext.SaveChanges();
 
+            List<int> internalNoteIds = new List<int>();
+            List<int> invoiceNoteIds = new List<int>();
+
             foreach (var formItem in form.Items.Where(element => element.Select))
             {
                 var item = new DPPVATBankExpenditureNoteItemModel(model.Id, formItem.InternalNote.Id, formItem.InternalNote.DocumentNo, formItem.InternalNote.Date, formItem.InternalNote.DueDate, formItem.InternalNote.Supplier.Id, formItem.InternalNote.Supplier.Name, formItem.InternalNote.Supplier.IsImport, formItem.InternalNote.VATAmount, formItem.InternalNote.IncomeTaxAmount, formItem.InternalNote.DPP, formItem.InternalNote.TotalAmount, formItem.InternalNote.Currency.Id, formItem.InternalNote.Currency.Code, formItem.OutstandingAmount, formItem.InternalNote.Supplier.Code);
                 EntityExtension.FlagForCreate(item, _identityService.Username, UserAgent);
                 _dbContext.DPPVATBankExpenditureNoteItems.Add(item);
                 _dbContext.SaveChanges();
+                if (formItem.OutstandingAmount == 0)
+                {
+                    internalNoteIds.Add(formItem.InternalNote.Id);
+                }
 
                 foreach (var formDetail in formItem.InternalNote.Items.Where(element => element.SelectInvoice))
                 {
                     var detailDOString = JsonConvert.SerializeObject(formDetail.Invoice.DetailDO);
-                    var detail = new DPPVATBankExpenditureNoteDetailModel(model.Id, item.Id, formDetail.Invoice.Id, formDetail.Invoice.DocumentNo, formDetail.Invoice.Date, formDetail.Invoice.ProductNames, formDetail.Invoice.Category.Id, formDetail.Invoice.Category.Name, formDetail.Invoice.Amount, formDetail.Invoice.PaymentMethod, formDetail.Invoice.DeliveryOrdersNo, formDetail.Invoice.PaymentBills, formDetail.Invoice.BillsNo, detailDOString);
+                    var detail = new DPPVATBankExpenditureNoteDetailModel(model.Id, item.Id, formDetail.Invoice.Id, formDetail.Invoice.DocumentNo, formDetail.Invoice.Date, formDetail.Invoice.ProductNames, formDetail.Invoice.Category.Id, formDetail.Invoice.Category.Name, formDetail.Invoice.Amount, formDetail.Invoice.PaymentMethod, formDetail.Invoice.DeliveryOrdersNo, formDetail.Invoice.PaymentBills, formDetail.Invoice.BillsNo, detailDOString, formDetail.Invoice.PaidAmount);
+                    var sumAmount = _dbContext.DPPVATBankExpenditureNoteDetails.Where(a => a.InvoiceId == formDetail.Invoice.Id).Sum(a => a.PaidAmount);
                     EntityExtension.FlagForCreate(detail, _identityService.Username, UserAgent);
                     _dbContext.DPPVATBankExpenditureNoteDetails.Add(detail);
                     _dbContext.SaveChanges();
+                    if (formDetail.Invoice.PaidAmount - formDetail.Invoice.Amount == 0)
+                    {
+                        invoiceNoteIds.Add(formDetail.Invoice.Id);
+                    }
 
                     foreach(var detailDo in formDetail.Invoice.DetailDO)
                     {
@@ -65,9 +77,9 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
                 }
             }
 
-            var internalNoteIds = form.Items.Where(element => element.Select).Select(element => element.InternalNote.Id).ToList();
-            var invoiceNoteIds = form.Items.Where(element => element.Select).SelectMany(element => element.InternalNote.Items).Where(element => element.SelectInvoice).Select(element => element.Invoice.Id).ToList();
-
+            //var internalNoteIds = form.Items.Where(element => element.Select).Select(element => element.InternalNote.Id).ToList();
+            //var invoiceNoteIds = form.Items.Where(element => element.Select).SelectMany(element => element.InternalNote.Items).Where(element => element.SelectInvoice).Select(element => element.Invoice.Id).ToList();
+            
             await UpdateInternalNoteInvoiceNoteIsPaid(true, model.Id, model.DocumentNo, internalNoteIds, invoiceNoteIds);
 
             return model.Id;
@@ -257,7 +269,8 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
             await UpdateInternalNoteInvoiceNoteIsPaid(false, model.Id, model.DocumentNo, existingInternalNoteIds, existingInvoiceNoteIds);
 
             var formItems = form.Items.Where(item => item.Select);
-
+            List<int> internalNoteIds = new List<int>();
+            List<int> invoiceNoteIds = new List<int>();
             if (formItems != null)
             {
                 foreach (var formItem in formItems)
@@ -266,6 +279,10 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
                     EntityExtension.FlagForCreate(item, _identityService.Username, UserAgent);
                     _dbContext.DPPVATBankExpenditureNoteItems.Add(item);
                     _dbContext.SaveChanges();
+                    if (formItem.OutstandingAmount == 0)
+                    {
+                        internalNoteIds.Add(formItem.InternalNote.Id);
+                    }
 
                     var formDetails = formItem.InternalNote.Items.Where(invoiceItem => invoiceItem.SelectInvoice);
 
@@ -278,7 +295,10 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
                             EntityExtension.FlagForCreate(detail, _identityService.Username, UserAgent);
                             _dbContext.DPPVATBankExpenditureNoteDetails.Add(detail);
                             _dbContext.SaveChanges();
-
+                            if (formDetail.Invoice.PaidAmount - formDetail.Invoice.Amount == 0)
+                            {
+                                invoiceNoteIds.Add(formDetail.Invoice.Id);
+                            }
                             var detailDos = formDetail.Invoice.DetailDO;
 
                             if (detailDos != null)
@@ -296,8 +316,8 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
                 }
             }
 
-            var internalNoteIds = form.Items.Where(element => element.Select).Select(element => element.InternalNote.Id).ToList();
-            var invoiceNoteIds = form.Items.Where(element => element.Select).SelectMany(element => element.InternalNote.Items).Where(element => element.SelectInvoice).Select(element => element.Invoice.Id).ToList();
+            //var internalNoteIds = form.Items.Where(element => element.Select).Select(element => element.InternalNote.Id).ToList();
+            //var invoiceNoteIds = form.Items.Where(element => element.Select).SelectMany(element => element.InternalNote.Items).Where(element => element.SelectInvoice).Select(element => element.Invoice.Id).ToList();
 
             await UpdateInternalNoteInvoiceNoteIsPaid(true, model.Id, model.DocumentNo, internalNoteIds, invoiceNoteIds);
 
