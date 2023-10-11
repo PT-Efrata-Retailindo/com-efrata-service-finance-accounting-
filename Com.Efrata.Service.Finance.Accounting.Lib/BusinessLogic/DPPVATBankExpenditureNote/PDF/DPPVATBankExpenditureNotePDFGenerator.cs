@@ -149,13 +149,13 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
                 table.AddCell(cellCenter);
                 cellLeft.Phrase = new Phrase(item.InternalNote.DocumentNo, _normalFont);
                 table.AddCell(cellLeft);
-                cellLeft.Phrase = new Phrase(string.Join("\n", item.InternalNote.Items.Select(element => $"- {element.Invoice.Category.Name}").First()), _subHeaderFont);
+                cellLeft.Phrase = new Phrase(string.Join("\n", item.InternalNote.Items.Select(element => $"- {element.Invoice.Category.Name}").First()), _normalFont);
                 table.AddCell(cellLeft);
-                cellCenter.Phrase = new Phrase(item.InternalNote.Currency.Code, _subHeaderFont);
+                cellCenter.Phrase = new Phrase(item.InternalNote.Currency.Code, _normalFont);
                 table.AddCell(cellCenter);
-                cellCenter.Phrase = new Phrase(string.Format("{0:n0}", item.InternalNote.Items.Sum(itemInvoice => itemInvoice.Invoice.PaidAmount)), _subHeaderFont);
-                table.AddCell(cellCenter);
-                total += item.InternalNote.Items.Sum(itemInvoice => itemInvoice.Invoice.Amount);
+                cellRight.Phrase = new Phrase(string.Format("{0:n0}", item.InternalNote.Items.Sum(itemInvoice => itemInvoice.Invoice.PaidAmount)), _normalBoldFont);
+                table.AddCell(cellRight);
+                total += item.InternalNote.Items.Sum(itemInvoice => itemInvoice.Invoice.PaidAmount);
             }
 
             cellCenter.Phrase = new Phrase("", _normalFont);
