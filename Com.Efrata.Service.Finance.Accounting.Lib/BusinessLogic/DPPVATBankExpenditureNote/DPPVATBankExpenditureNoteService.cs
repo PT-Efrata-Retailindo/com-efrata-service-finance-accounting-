@@ -136,7 +136,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
             int Month = date.Month;
             string roman = Month == 1 ? "I" : Month == 2 ? "II" : Month == 3 ? "III" : Month == 4 ? "IV" : Month == 5 ? "V" : Month == 6 ? "VI" :
                 Month == 7 ? "VII" : Month == 8 ? "VIII" : Month == 9 ? "IX" : Month == 10 ? "X" : Month == 11 ? "XI" : Month == 12 ? "XII" : "";
-            string no = type + bankCode + roman + Year;
+            string no = type + bankCode + "-" + roman + "-" + Year + "-";
             //no = string.Concat("BUM", garmentUnitReceiptNote.UnitCode, Year, Month, Day);
             int Padding = 4;
 
