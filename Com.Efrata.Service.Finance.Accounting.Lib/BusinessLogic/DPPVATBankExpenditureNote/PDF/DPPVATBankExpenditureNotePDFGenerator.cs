@@ -223,21 +223,21 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
             cellLeft.Phrase = new Phrase($": {data.Date.AddHours(timezoneOffset).ToString("dd/MMMM/yyyy")}", _subHeaderFont);
             table.AddCell(cellLeft);
 
-            cellLeft.Phrase = new Phrase("Banaran, Grogol, Sukoharjo, Jawa Tengah", _subHeaderFont);
+            cellLeft.Phrase = new Phrase("Jl. Merapi No.23 Blok E1, Desa/Kelurahan Banaran, Kec. Grogol,", _subHeaderFont);
             table.AddCell(cellLeft);
             cellLeft.Phrase = new Phrase("NO", _subHeaderFont);
             table.AddCell(cellLeft);
             cellLeft.Phrase = new Phrase($": {data.DocumentNo}", _subHeaderFont);
             table.AddCell(cellLeft);
 
-            cellLeft.Phrase = new Phrase("57552", _subHeaderFont);
+            cellLeft.Phrase = new Phrase("Kab. Sukoharjo, Provinsi Jawa Tengah", _subHeaderFont);
             table.AddCell(cellLeft);
             cellLeft.Phrase = new Phrase("Dibayarkan ke", _subHeaderFont);
             table.AddCell(cellLeft);
             cellLeft.Phrase = new Phrase($": {data.Supplier.Name}", _subHeaderFont);
             table.AddCell(cellLeft);
 
-            cellLeft.Phrase = new Phrase("Telp(0271) 732888, 7652931", _subHeaderFont);
+            cellLeft.Phrase = new Phrase("Kode Pos: 57552, Telp: 02711740888", _subHeaderFont);
             table.AddCell(cellLeft);
             cellLeft.Phrase = new Phrase("Bank", _subHeaderFont);
             table.AddCell(cellLeft);

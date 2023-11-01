@@ -34,7 +34,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
         public async Task<int> Create(FormDto form)
         {
             var timeOffset = new TimeSpan(_identityService.TimezoneOffset, 0, 0);
-            var documentNo = await GetDocumentNo("K", form.Bank.BankCode, _identityService.Username, form.Date.GetValueOrDefault().ToOffset(timeOffset).Date);
+            var documentNo = await GetDocumentNo("BK", form.Bank.BankCode, _identityService.Username, form.Date.GetValueOrDefault().ToOffset(timeOffset).Date);
             var model = new DPPVATBankExpenditureNoteModel(documentNo, form.Bank.Id, form.Bank.AccountNumber, form.Bank.BankName, form.Bank.BankCode, form.Currency.Id, form.Currency.Code, form.Currency.Rate, form.Supplier.Id, form.Supplier.Name, form.Supplier.IsImport, form.BGCheckNo, form.Amount, form.Date.GetValueOrDefault(), form.Bank.Currency.Code, form.Bank.Currency.Id, form.Bank.Currency.Rate);
             EntityExtension.FlagForCreate(model, _identityService.Username, UserAgent);
             _dbContext.DPPVATBankExpenditureNotes.Add(model);
@@ -107,26 +107,50 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
         //    return result.data;
         //}
 
-        public async Task<string> GetDocumentNo(string type, string bankCode, string username,DateTime date)
+        //public async Task<string> GetDocumentNo(string type, string bankCode, string username,DateTime date)
+        //{
+        //    var jsonSerializerSettings = new JsonSerializerSettings
+        //    {
+        //        MissingMemberHandling = MissingMemberHandling.Ignore
+        //    };
+
+        //    var http = _serviceProvider.GetService<IHttpClientService>();
+        //    var uri = APIEndpoint.Purchasing + $"bank-expenditure-notes/bank-document-no-date?type={type}&bankCode={bankCode}&username={username}&date={date}";
+        //    var response = await http.GetAsync(uri);
+
+        //    var result = new BaseResponse<string>();
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var responseContent = await response.Content.ReadAsStringAsync();
+        //        result = JsonConvert.DeserializeObject<BaseResponse<string>>(responseContent, jsonSerializerSettings);
+        //    }
+
+        //    return result.data;
+        //}
+
+
+        public async Task<string> GetDocumentNo(string type, string bankCode, string username, DateTime date)
         {
-            var jsonSerializerSettings = new JsonSerializerSettings
+            string Year = date.ToString("yy");
+            int Month = date.Month;
+            string roman = Month == 1 ? "I" : Month == 2 ? "II" : Month == 3 ? "III" : Month == 4 ? "IV" : Month == 5 ? "V" : Month == 6 ? "VI" :
+                Month == 7 ? "VII" : Month == 8 ? "VIII" : Month == 9 ? "IX" : Month == 10 ? "X" : Month == 11 ? "XI" : Month == 12 ? "XII" : "";
+            string no = type + bankCode + "-" + roman + "-" + Year + "-";
+            //no = string.Concat("BUM", garmentUnitReceiptNote.UnitCode, Year, Month, Day);
+            int Padding = 4;
+
+            var lastNo = await _dbContext.DPPVATBankExpenditureNotes.Where(w => w.DocumentNo.StartsWith(no) && !w.IsDeleted).OrderByDescending(o => o.DocumentNo).FirstOrDefaultAsync();
+
+            if (lastNo == null)
             {
-                MissingMemberHandling = MissingMemberHandling.Ignore
-            };
-
-            var http = _serviceProvider.GetService<IHttpClientService>();
-            var uri = APIEndpoint.Purchasing + $"bank-expenditure-notes/bank-document-no-date?type={type}&bankCode={bankCode}&username={username}&date={date}";
-            var response = await http.GetAsync(uri);
-
-            var result = new BaseResponse<string>();
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                result = JsonConvert.DeserializeObject<BaseResponse<string>>(responseContent, jsonSerializerSettings);
+                return no + "1".PadLeft(Padding, '0');
             }
-
-            return result.data;
+            else
+            {
+                int lastNoNumber = Int32.Parse(lastNo.DocumentNo.Replace(no, string.Empty)) + 1;
+                return no + lastNoNumber.ToString().PadLeft(Padding, '0');
+            }
         }
 
         private async Task UpdateInternalNoteInvoiceNoteIsPaid(bool dppVATIsPaid, int bankExpenditureNoteId, string bankExpenditureNoteNo, List<int> internalNoteIds, List<int> invoiceNoteIds)
