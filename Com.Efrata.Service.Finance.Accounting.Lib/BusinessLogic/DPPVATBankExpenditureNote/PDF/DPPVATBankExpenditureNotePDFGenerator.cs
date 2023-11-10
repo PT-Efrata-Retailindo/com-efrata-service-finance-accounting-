@@ -50,7 +50,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
             footerTable.SetWidths(widthsFooter);
             footerTable.WidthPercentage = 100;
 
-            cellFooter.Phrase = new Phrase("Dikeluarkan dengan cek/BG No. : " + "", _normalFont);
+            cellFooter.Phrase = new Phrase("Dikeluarkan dengan Check : " + "", _normalFont);
             footerTable.AddCell(cellFooter);
 
             cellFooter.Phrase = new Phrase("", _normalFont);
@@ -193,7 +193,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
                 WidthPercentage = 100,
                 HorizontalAlignment = Element.ALIGN_LEFT
             };
-            table.SetWidths(new float[] { 6f, 3f, 3f });
+            table.SetWidths(new float[] { 6f, 2f, 4f });
 
             var cellCenter = new PdfPCell()
             {
@@ -218,32 +218,33 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
 
             cellLeft.Phrase = new Phrase("PT. EFRATA GARMINDO UTAMA", _subHeaderFont);
             table.AddCell(cellLeft);
-            cellLeft.Phrase = new Phrase("Tanggal", _subHeaderFont);
+            cellLeft.Phrase = new Phrase("Tanggal", _smallBoldFont);
             table.AddCell(cellLeft);
-            cellLeft.Phrase = new Phrase($": {data.Date.AddHours(timezoneOffset).ToString("dd/MMMM/yyyy")}", _subHeaderFont);
-            table.AddCell(cellLeft);
-
-            cellLeft.Phrase = new Phrase("Jl. Merapi No.23 Blok E1, Desa/Kelurahan Banaran, Kec. Grogol,", _subHeaderFont);
-            table.AddCell(cellLeft);
-            cellLeft.Phrase = new Phrase("NO", _subHeaderFont);
-            table.AddCell(cellLeft);
-            cellLeft.Phrase = new Phrase($": {data.DocumentNo}", _subHeaderFont);
+            cellLeft.Phrase = new Phrase($": {data.Date.AddHours(timezoneOffset).ToString("dd/MMMM/yyyy")}", _smallBoldFont);
             table.AddCell(cellLeft);
 
-            cellLeft.Phrase = new Phrase("Kab. Sukoharjo, Provinsi Jawa Tengah", _subHeaderFont);
+            cellLeft.Phrase = new Phrase("Jl. Merapi No.23 Blok E1, Desa/Kelurahan Banaran, Kec. Grogol,", _smallBoldFont);
             table.AddCell(cellLeft);
-            cellLeft.Phrase = new Phrase("Dibayarkan ke", _subHeaderFont);
+            cellLeft.Phrase = new Phrase("NO", _smallBoldFont);
             table.AddCell(cellLeft);
-            cellLeft.Phrase = new Phrase($": {data.Supplier.Name}", _subHeaderFont);
-            table.AddCell(cellLeft);
-
-            cellLeft.Phrase = new Phrase("Kode Pos: 57552, Telp: 02711740888", _subHeaderFont);
-            table.AddCell(cellLeft);
-            cellLeft.Phrase = new Phrase("Bank", _subHeaderFont);
-            table.AddCell(cellLeft);
-            cellLeft.Phrase = new Phrase($": {data.Bank.BankName} {data.Currency.Code} - A/C : {data.Bank.AccountNumber}", _subHeaderFont);
+            cellLeft.Phrase = new Phrase($": {data.DocumentNo}", _smallBoldFont);
             table.AddCell(cellLeft);
 
+            cellLeft.Phrase = new Phrase("Kab. Sukoharjo, Provinsi Jawa Tengah", _smallBoldFont);
+            table.AddCell(cellLeft);
+            cellLeft.Phrase = new Phrase("Dibayarkan ke", _smallBoldFont);
+            table.AddCell(cellLeft);
+            cellLeft.Phrase = new Phrase($": {data.Supplier.Name}", _smallBoldFont);
+            table.AddCell(cellLeft);
+
+            cellLeft.Phrase = new Phrase("Kode Pos: 57552, Telp: 02711740888", _smallBoldFont);
+            table.AddCell(cellLeft);
+            cellLeft.Phrase = new Phrase("Bank", _smallBoldFont);
+            table.AddCell(cellLeft);
+            cellLeft.Phrase = new Phrase($": {data.Bank.BankName} {data.Currency.Code} - A/C : {data.Bank.AccountNumber}", _smallBoldFont);
+            table.AddCell(cellLeft);
+
+            table.SpacingAfter = 5f;
             document.Add(table);
         }
     }
