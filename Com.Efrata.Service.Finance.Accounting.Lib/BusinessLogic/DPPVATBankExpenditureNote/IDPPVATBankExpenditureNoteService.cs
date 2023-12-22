@@ -17,5 +17,6 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
         ReportDto ExpenditureFromInvoice(long InvoiceId);
         Task<int> Posting(List<int> ids);
         Task<string> GetDocumentNo(string type, string bankCode, string username, DateTime date);
+        DPPVATBankExpenditureNoteDetailDto GetDetails(long InvoiceId);
     }
 }

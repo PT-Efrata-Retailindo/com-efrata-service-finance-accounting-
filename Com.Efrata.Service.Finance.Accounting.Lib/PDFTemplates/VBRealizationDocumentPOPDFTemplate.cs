@@ -674,11 +674,11 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.PDFTemplates
 
 
             #region Footer
-            PdfPTable table = new PdfPTable(5)
+            PdfPTable table = new PdfPTable(3)
             {
                 WidthPercentage = 100
             };
-            float[] widths = new float[] { 1f, 1f, 1f, 1f, 1f };
+            float[] widths = new float[] { 1f, 1f, 1f };
             table.SetWidths(widths);
             PdfPCell cell = new PdfPCell()
             {

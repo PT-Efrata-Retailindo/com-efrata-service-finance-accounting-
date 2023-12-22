@@ -23,6 +23,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
             DeliveryOrdersNo = detail.DeliveryOrdersNo;
             PaymentBills = detail.PaymentBills;
             BillsNo = detail.BillsNo;
+            PaidAmount = detail.PaidAmount;
         }
 
         public string DocumentNo { get; set; }
@@ -31,6 +32,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.DPPVATBankExpe
         public CategoryDto Category { get; set; }
         public string PaymentMethod { get; set; }
         public double Amount { get; set; }
+        public double PaidAmount { get; set; }
         public string DeliveryOrdersNo { get; set; }
         public string PaymentBills { get; set; }
         public string BillsNo { get; set; }

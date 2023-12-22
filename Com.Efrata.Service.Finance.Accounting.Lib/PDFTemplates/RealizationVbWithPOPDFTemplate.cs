@@ -1114,11 +1114,11 @@ namespace Com.Efrata.Service.Finance.Accounting.WebApi.Controllers.v1.Realizatio
 
             #region Footer
 
-            PdfPTable table = new PdfPTable(5)
+            PdfPTable table = new PdfPTable(3)
             {
                 WidthPercentage = 100
             };
-            float[] widths = new float[] { 1f, 1f, 1f, 1f, 1f };
+            float[] widths = new float[] { 1f, 1f, 1f };
             table.SetWidths(widths);
             PdfPCell cell = new PdfPCell()
             {
@@ -1148,17 +1148,17 @@ namespace Com.Efrata.Service.Finance.Accounting.WebApi.Controllers.v1.Realizatio
             table.AddCell(cell);
             cell.Phrase = new Phrase("", normal_font);
             table.AddCell(cell);
-            cell.Phrase = new Phrase("", normal_font);
-            table.AddCell(cell);
-            cell.Phrase = new Phrase("", normal_font);
-            table.AddCell(cell);
+            //cell.Phrase = new Phrase("", normal_font);
+            //table.AddCell(cell);
+            //cell.Phrase = new Phrase("", normal_font);
+            //table.AddCell(cell);
 
             cell.Phrase = new Phrase("Menyetujui,", normal_font);
             table.AddCell(cell);
-            cell.Phrase = new Phrase("Diperiksa,", normal_font);
+            //cell.Phrase = new Phrase("Diperiksa,", normal_font);
+            //table.AddCell(cell);
+            cell.Phrase = new Phrase("Mengetahui,", normal_font);
             table.AddCell(cell);
-            cellColspan.Phrase = new Phrase("Mengetahui,", normal_font);
-            table.AddCell(cellColspan);
             //cell.Phrase = new Phrase("", normal_font);
             //table.AddCell(cell);
             cell.Phrase = new Phrase("Pembuat laporan,", normal_font);
@@ -1173,33 +1173,33 @@ namespace Com.Efrata.Service.Finance.Accounting.WebApi.Controllers.v1.Realizatio
                 table.AddCell(cell);
                 cell.Phrase = new Phrase("", normal_font);
                 table.AddCell(cell);
-                cell.Phrase = new Phrase("", normal_font);
-                table.AddCell(cell);
-                cell.Phrase = new Phrase("", normal_font);
-                table.AddCell(cell);
+                //cell.Phrase = new Phrase("", normal_font);
+                //table.AddCell(cell);
+                //cell.Phrase = new Phrase("", normal_font);
+                //table.AddCell(cell);
             }
 
             cell.Phrase = new Phrase("(..................)", normal_font);
             table.AddCell(cell);
             cell.Phrase = new Phrase("(..................)", normal_font);
             table.AddCell(cell);
-            cell.Phrase = new Phrase("(..................)", normal_font);
-            table.AddCell(cell);
-            cell.Phrase = new Phrase("(..................)", normal_font);
-            table.AddCell(cell);
+            //cellColspan.Phrase = new Phrase("(..................)", normal_font);
+            //table.AddCell(cellColspan);
+            //cell.Phrase = new Phrase("(..................)", normal_font);
+            //table.AddCell(cell);
             cell.Phrase = new Phrase($"({viewModel.numberVB.CreateBy})", normal_font);
             table.AddCell(cell);
 
-            cell.Phrase = new Phrase("Kasir", normal_font);
+            cell.Phrase = new Phrase("Bag Anggaran", normal_font);
             table.AddCell(cell);
             cell.Phrase = new Phrase("Verifikasi", normal_font);
             table.AddCell(cell);
-            cell.Phrase = new Phrase($"Dir {viewModel.numberVB.UnitName}", normal_font);
+            //cell.Phrase = new Phrase($"Dir {viewModel.numberVB.UnitName}", normal_font);
+            //table.AddCell(cell);
+            cell.Phrase = new Phrase($"Pembelian", normal_font);
             table.AddCell(cell);
-            cell.Phrase = new Phrase($"Kabag {viewModel.numberVB.UnitName}", normal_font);
-            table.AddCell(cell);
-            cell.Phrase = new Phrase(viewModel.numberVB.UnitName, normal_font);
-            table.AddCell(cell);
+            //cell.Phrase = new Phrase(viewModel.numberVB.UnitName, normal_font);
+            //table.AddCell(cell);
 
             document.Add(table);
             #endregion Footer

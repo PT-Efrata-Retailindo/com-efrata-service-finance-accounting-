@@ -410,5 +410,10 @@ namespace Com.Efrata.Service.Finance.Accounting.Test.Services
             await Task.Delay(1000);
             return await Task.FromResult(string.Empty);
         }
+
+        public DPPVATBankExpenditureNoteDetailDto GetDetails(long InvoiceId)
+        {
+            return new DPPVATBankExpenditureNoteDetailDto();
+        }
     }
 }
