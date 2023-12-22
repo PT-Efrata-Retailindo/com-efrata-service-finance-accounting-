@@ -685,60 +685,17 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.PDFTemplates
                 HorizontalAlignment = Element.ALIGN_CENTER,
                 VerticalAlignment = Element.ALIGN_MIDDLE,
             };
-
-            cell.Phrase = new Phrase("\n\n", normal_font);
+            cell.Phrase = new Phrase("Purchasing\n\n\n\n\n\n\n(                   )", bold_font);
             table.AddCell(cell);
-            cell.Phrase = new Phrase("\n\n", normal_font);
+            cell.Phrase = new Phrase("Manager Purchasing\n\n\n\n\n\n\n(                   )", bold_font);
             table.AddCell(cell);
-            cell.Phrase = new Phrase("\n\n", normal_font);
+            cell.Phrase = new Phrase("Controller\n\n\n\n\n\n\n(                   )", bold_font);
             table.AddCell(cell);
-            cell.Phrase = new Phrase("\n\n", normal_font);
+            cell.Phrase = new Phrase("General Manager\n\n\n\n\n\n\n(                   )", bold_font);
             table.AddCell(cell);
-            cell.Phrase = new Phrase("\n\n", normal_font);
+            cell.Phrase = new Phrase("Manager Akt & Keu\n\n\n\n\n\n\n(                   )", bold_font);
             table.AddCell(cell);
-
-            // Menyetujui
-            cell.Phrase = new Phrase("Menyetujui,", normal_font);
-            table.AddCell(cell);
-
-            // Diperiksa
-            cell.Phrase = new Phrase("Diperiksa,", normal_font);
-            table.AddCell(cell);
-
-            // Mengetahui
-            cell.Colspan = 2;
-            cell.Phrase = new Phrase("Mengetahui,", normal_font);
-            table.AddCell(cell);
-
-            // Pembuat laporan
-            cell.Colspan = 1;
-            cell.Phrase = new Phrase("Pembuat laporan,", normal_font);
-            table.AddCell(cell);
-
-            for (var i = 0; i < 11; i++)
-            {
-                cell.Phrase = new Phrase("", normal_font);
-                table.AddCell(cell);
-                cell.Phrase = new Phrase("", normal_font);
-                table.AddCell(cell);
-                cell.Phrase = new Phrase("", normal_font);
-                table.AddCell(cell);
-                cell.Phrase = new Phrase("", normal_font);
-                table.AddCell(cell);
-                cell.Phrase = new Phrase("", normal_font);
-                table.AddCell(cell);
-            }
-
-            cell.Phrase = new Phrase("(..................)", normal_font);
-            table.AddCell(cell);
-            cell.Phrase = new Phrase("(..................)", normal_font);
-            table.AddCell(cell);
-            cell.Colspan = 2;
-            cell.Phrase = new Phrase("(..................)", normal_font);
-            table.AddCell(cell);
-            cell.Colspan = 0;
-            cell.Phrase = new Phrase($"({viewModel.CreatedBy})", normal_font);
-            table.AddCell(cell);
+            
             document.Add(table);
             #endregion Footer
 
