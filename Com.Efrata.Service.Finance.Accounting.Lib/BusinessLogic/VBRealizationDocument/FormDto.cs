@@ -50,6 +50,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.VBRealizationD
             {
                 int CountItemsError = 0;
                 string ItemsError = "[";
+                List<string> spbNo = new List<string>();
 
                 foreach (var item in Items)
                 {
@@ -59,6 +60,15 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.BusinessLogic.VBRealizationD
                     {
                         CountItemsError++;
                         ItemsError += "'UnitPaymentOrder': 'SPB harus diisi', ";
+                    }
+                    if (spbNo.Count == 0)
+                    {
+                        spbNo.Add(item.UnitPaymentOrder.No);
+                    }
+                    else if (spbNo.Contains(item.UnitPaymentOrder.No))
+                    {
+                        CountItemsError++;
+                        ItemsError += "'UnitPaymentOrder': 'No SPB duplikat', ";
                     }
 
                     ItemsError += "}, ";
