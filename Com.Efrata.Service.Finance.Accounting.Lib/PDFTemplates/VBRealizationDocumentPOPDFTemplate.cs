@@ -537,7 +537,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.PDFTemplates
                 }
                 else
                 {
-                    var nom = item.Sum(s => s.Amount).ToString("#,##0.00", new CultureInfo("id-ID"));
+                    //var nom = item.Sum(s => s.Amount).ToString("#,##0.00", new CultureInfo("id-ID"));
                     //var nom = item.Sum(s => s.AmountNom).ToString("#,##0.00", new CultureInfo("id-ID"));
 
                     // Beban Unit Item Mata Uang
@@ -548,7 +548,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.PDFTemplates
 
                     // Beban Unit Item Nominal
                     cellHeaderBody.Colspan = 1;
-                    cellHeaderBody.Phrase = new Phrase(nom, normal_font_8);
+                    cellHeaderBody.Phrase = new Phrase(total_realization.ToString("#,##0.00", new CultureInfo("id-ID")), normal_font_8);
                     cellHeaderBody.HorizontalAlignment = Element.ALIGN_RIGHT;
                     headerTable3a.AddCell(cellHeaderBody);
                 }
