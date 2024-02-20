@@ -590,7 +590,7 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.PDFTemplates
                     if ((GetPPhValueEfrata(viewModel)) == 0 && (GetPPhValue(viewModel)) == 0)
                     {
                         cellHeaderBody.Colspan = 1;
-                        cellHeaderBody.Phrase = new Phrase(ppn_unit_item.ToString("#,##0.00", new CultureInfo("id-ID")), normal_font_8);
+                        cellHeaderBody.Phrase = new Phrase((count_price - total_realization).ToString("#,##0.00", new CultureInfo("id-ID")), normal_font_8);
                         cellHeaderBody.HorizontalAlignment = Element.ALIGN_CENTER;
                         headerTable3a.AddCell(cellHeaderBody);
 
