@@ -565,7 +565,8 @@ namespace Com.Efrata.Service.Finance.Accounting.Lib.PDFTemplates
                 }
                 else if ((GetPPhValueEfrata(viewModel)) == 0 && (GetPPhValue(viewModel)) != 0)
                 {
-                    decimal pph_supplier_unit_item = ((item.Sum(s => s.Amount) / grandTotal) * (GetPPhValue(viewModel)));
+                    //decimal pph_supplier_unit_item = ((item.Sum(s => s.Amount) / grandTotal) * (GetPPhValue(viewModel)));
+                    decimal pph_supplier_unit_item =  GetPPhValue(viewModel);
 
                     cellHeaderBody.Colspan = 1;
                     cellHeaderBody.Phrase = new Phrase(pph_supplier_unit_item.ToString("#,##0.00", new CultureInfo("id-ID")), normal_font_8);
